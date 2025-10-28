@@ -187,6 +187,12 @@ class LanguageDetector:
         dominant_internal = self.get_dominant_language(text, labels_internal)
         dominant = LANG_LABEL_MAP.get(dominant_internal, dominant_internal) if readable else dominant_internal
 
+        if len(labels) != len(tokens):
+            print(f"⚠️ Token/Label mismatch: {len(tokens)} tokens vs {len(labels)} labels")
+            min_len = min(len(tokens), len(labels))
+            tokens = tokens[:min_len]
+            labels = labels[:min_len]
+        
         return {
             'tokens': tokens,
             'labels': labels,
