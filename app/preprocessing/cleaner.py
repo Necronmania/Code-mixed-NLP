@@ -164,6 +164,17 @@ class HinglishCleaner:
         """
         cleaned = self.clean_text(text)
         tokens = self.tokenize(cleaned)
+
+        merged_tokens = []
+        i = 0
+        while i < len(tokens):
+            if i < len(tokens) - 1 and tokens[i + 1] in {"'s", "'t", "'re", "'ve", "'ll", "'d"}:
+                merged_tokens.append(tokens[i] + tokens[i + 1])
+                i += 2
+            else:
+                merged_tokens.append(tokens[i])
+                i += 1
+        tokens = merged_tokens
         
         return {
             'original': text,
