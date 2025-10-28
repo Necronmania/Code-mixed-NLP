@@ -157,7 +157,7 @@ class LanguageDetector:
             Dictionary with tokens, labels, and statistics
         """
         if tokenize:
-            tokens = text.split()
+            tokens = re.findall(r"[A-Za-z0-9]+|[^\w\s]", text)
         else:
             tokens = [text]
         
